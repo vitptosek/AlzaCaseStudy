@@ -26,6 +26,8 @@ namespace Domain.Entities {
 			ImgUri = imgUri;
 		}
 
+		public override string ToString() => $"Product {Name} for {Price}{(IsDeleted ? " [deleted]" : "")}";
+
 		public void UpdateDescription(string description) => Description = description;
 	}
 }

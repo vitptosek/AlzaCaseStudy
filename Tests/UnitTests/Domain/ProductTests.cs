@@ -21,5 +21,15 @@ namespace UnitTests.Domain {
 			laptop.UpdateDescription("Gaming laptop - discounted");
 			Assert.True(laptop.Description == "Gaming laptop - discounted");
 		}
+
+		[Fact]
+		public void ProductStringTest() {
+			var tv = new Product("TV", 9m, new Uri("http://www.uriTv/"));
+
+			Assert.True($"{tv}" == "Product TV for 9");
+			tv.IsDeleted = true;
+			Assert.True($"{tv}" == "Product TV for 9 [deleted]");
+
+		}
 	}
 }

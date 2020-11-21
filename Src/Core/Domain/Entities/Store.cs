@@ -21,6 +21,8 @@ namespace Domain.Entities {
 			City = city;
 		}
 
+		public override string ToString() => $"Store {Name} in {City}";
+
 		public void StockProduct(Product product) => StoreProducts.Add(new StoreProduct { Store = this, Product = product });
 	}
 }
