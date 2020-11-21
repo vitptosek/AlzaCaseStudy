@@ -8,9 +8,10 @@ namespace Domain.Entities {
 	public class Store : AuditableEntityNamed {
 		public string City { get; set; }
 
-		#region references
+		#region References
 
-		public ICollection<StoreProduct> StoreProducts { get; set; }
+		public IEnumerable<StoreProduct> Products => StoreProducts;
+		internal ICollection<StoreProduct> StoreProducts { get; private set; }
 
 		#endregion
 

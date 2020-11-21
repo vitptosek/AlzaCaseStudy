@@ -12,9 +12,10 @@ namespace Domain.Entities {
 
 		public Uri ImgUri { get; set; }
 
-		#region references
+		#region References
 
-		public ICollection<StoreProduct> StoreProducts { get; set; }
+		public IEnumerable<StoreProduct> Stores => StoreProducts;
+		internal ICollection<StoreProduct> StoreProducts { get; private set; }
 
 		#endregion
 

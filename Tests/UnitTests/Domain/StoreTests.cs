@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Xunit;
 
@@ -13,9 +14,11 @@ namespace UnitTests.Domain {
 			var newStore = new Store("New store", "Prague");
 			var newProduct = new Product("New product", 10500.50m, new Uri("http://www.uriNewProduct/"));
 
-			Assert.True(newStore.StoreProducts.Count == 0);
+			Assert.False(newStore.Products.Any());
 			newStore.StockProduct(newProduct);
-			Assert.True(newStore.StoreProducts.Count == 1);
+			Assert.True(newStore.Products.Count() == 1);
+			newStore.StockProduct(newProduct);
+			Assert.True(newStore.Products.Count() == 2);
 		}
 	}
 }

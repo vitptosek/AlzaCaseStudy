@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace Domain.Entities.Relations {
-	public class StoreProduct {
+using Domain.Entities.Common;
 
-		#region references
+namespace Domain.Entities.Relations {
+	public class StoreProduct : Identity {
+
+		#region References
 
 		public Guid StoreId { get; set; }
 		public Store Store { get; set; }
