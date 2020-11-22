@@ -32,6 +32,7 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 			public async Task<UpdateProductResponse> Handle(UpdateProductRequest request, CancellationToken cancellationToken) {
 				var response = new UpdateProductResponse(false) { ProductUpdateMessage = "Product not found" };
 
+				//TODO: this could be in some internal common service - get from cache or add to it...
 				var entity = await _dbContext.Products.FindAsync(request.ProductId);
 
 				if (entity is null) {
@@ -55,6 +56,7 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 					response.ProductUpdated = false;
 					response.ProductUpdateMessage = e.Message;
 				}
+				//TODO: ...and then we could update the cache
 
 				return response;
 			}
