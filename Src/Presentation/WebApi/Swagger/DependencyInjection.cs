@@ -1,18 +1,21 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System;
+using System.IO;
+using System.Reflection;
+
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
+
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace WebApi.Swagger {
 
 	public static class DependencyInjection {
 
 		public static IServiceCollection AddSwaggerServices(this IServiceCollection services) {
-			services.AddSwaggerGen(options => options.SwaggerDoc("AlzaApi",
-					new OpenApiInfo {
-						Title = "AlzaApi",
-						Version = "1.0",
-						Description = "API providing products",
-						Contact = new OpenApiContact { Name = "support", Email = "support@alzaapi.cz", }
-					}));
+			services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
+					.AddSwaggerGen(options =>
+						options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
+					);
 
 			return services;
 		}

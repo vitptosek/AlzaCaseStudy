@@ -12,16 +12,26 @@ using Microsoft.AspNetCore.Http;
 using Application.Services.Products.Queries.GetProduct;
 using Application.Services.Products.Queries.GetProducts;
 
-namespace WebApi.Controllers {
+namespace WebApi.Controllers.v1 {
 
+	/// <summary>
+	/// Product endpoint v1
+	/// </summary>
+	/// <seealso cref="BaseController" />
+	[ApiVersion("1")]
 	public class ProductController : BaseController {
 		private readonly Stopwatch _stopWatch;
 
-		public ProductController() {
-			_stopWatch = new Stopwatch();
-		}
+		public ProductController() => _stopWatch = new Stopwatch();
 
+		/// <summary>
+		/// Gets the product by identifier.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns></returns>
 		[HttpGet]
+		[MapToApiVersion("1")]
+		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<GetProductResponse>> GetById(Guid id) {
@@ -38,7 +48,12 @@ namespace WebApi.Controllers {
 			return Ok(result);
 		}
 
+		/// <summary>
+		/// Gets available products.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
+		[MapToApiVersion("1")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> GetAvailable() {
@@ -55,7 +70,15 @@ namespace WebApi.Controllers {
 			return NotFound();
 		}
 
+		/// <summary>
+		/// Updates the specified product by identifier.
+		/// </summary>
+		/// <param name="productId">The product identifier.</param>
+		/// <param name="description">The description to be updated.</param>
+		/// <returns></returns>
 		[HttpPut]
+		[MapToApiVersion("1")]
+		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<UpdateProductResponse>> Update(Guid productId, string description) {
