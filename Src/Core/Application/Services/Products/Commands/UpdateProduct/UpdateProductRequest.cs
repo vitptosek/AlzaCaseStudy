@@ -2,8 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
 using MediatR;
 using AutoMapper;
 
@@ -11,6 +9,12 @@ using Application.Interfaces;
 
 namespace Application.Services.Products.Commands.UpdateProduct {
 
+	/// <summary>
+	/// Handles a request for updating one product by ID for its description
+	/// </summary>
+	/// <returns>
+	/// Result of product update state (not found/up to date/updated) and updated product in case of success
+	/// </returns>
 	public class UpdateProductRequest : IRequest<UpdateProductResponse> {
 		public Guid ProductId { internal get; set; }
 		public string Description { internal get; set; }

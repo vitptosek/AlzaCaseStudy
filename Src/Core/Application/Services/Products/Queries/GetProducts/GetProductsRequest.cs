@@ -13,6 +13,12 @@ using Application.Interfaces;
 
 namespace Application.Services.Products.Queries.GetProducts {
 
+	/// <summary>
+	/// Handles a request for getting all available products
+	/// </summary>
+	/// <returns>
+	/// Products (not-deleted) being in at least one store (not-deleted) of at least one count, otherwise empty list
+	/// </returns>
 	public class GetProductsRequest : IRequest<IEnumerable<GetProductsResponse>> {
 
 		public class Handler : IRequestHandler<GetProductsRequest, IEnumerable<GetProductsResponse>> {
