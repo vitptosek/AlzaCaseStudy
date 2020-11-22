@@ -38,7 +38,7 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 					return response;
 				}
 
-				entity.Description = request.Description;
+				entity.UpdateDescription(request.Description);
 
 				try {
 					response = _mapper.Map<UpdateProductResponse>(entity);
