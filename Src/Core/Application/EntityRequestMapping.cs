@@ -8,6 +8,8 @@ using Application.Entities.Dto;
 using Application.Services.Products.Queries.GetProduct;
 using Application.Services.Products.Queries.GetProducts;
 
+using Application.Services.Products.Commands.UpdateProduct;
+
 namespace Application {
 
 	public class EntityRequestMapping : Profile {
@@ -18,6 +20,8 @@ namespace Application {
 
 			CreateMap<Product, GetProductResponse>().IncludeBase<Product, ProductDto>();
 			CreateMap<Product, GetProductsResponse>().IncludeBase<Product, ProductDto>();
+
+			CreateMap<Product, UpdateProductResponse>().IncludeBase<Product, ProductDto>();
 
 			#endregion
 
