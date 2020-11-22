@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Application.Services.Products.Queries.GetProduct;
 using Application.Services.Products.Queries.GetProducts;
 
-namespace WebApi.Controllers {
+namespace WebApi.Controllers.v1 {
 
 	public class ProductController : BaseController {
 		private readonly Stopwatch _stopWatch;
