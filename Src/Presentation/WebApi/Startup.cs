@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Application;
 using Persistence;
 
+using WebApi.Swagger;
+
 namespace WebApi {
 
 	public class Startup {
@@ -26,9 +28,10 @@ namespace WebApi {
 				.UseEndpoints(endpoints => {
 					endpoints.MapControllers();
 					//TODO: map health checks
-				});
+				})
 
-			//TODO: use swagger/ui
+				.UseSwagger()
+				.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/AlzaApi/swagger.json", "AlzaApi"));
 		}
 
 		public void ConfigureServices(IServiceCollection services) {
@@ -36,9 +39,10 @@ namespace WebApi {
 
 			#region app-specific-di-services
 
-			//TODO: add swagger/logger/filter/health checks
-			services.AddPersistenceServices(Configuration)
-					.AddApplicationServices();
+			//TODO: add logger/filter/health checks
+			services.AddSwaggerServices()
+					.AddApplicationServices()
+					.AddPersistenceServices(Configuration);
 
 			#endregion
 		}
