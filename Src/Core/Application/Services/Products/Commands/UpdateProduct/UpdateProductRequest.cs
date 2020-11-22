@@ -10,7 +10,7 @@ using Application.Interfaces;
 namespace Application.Services.Products.Commands.UpdateProduct {
 
 	/// <summary>
-	/// Handles a request for updating one product by ID for its description
+	/// Handles a request for updating one product by ID for its description (based on Domain)
 	/// </summary>
 	/// <returns>
 	/// Result of product update state (not found/up to date/updated) and updated product in case of success
