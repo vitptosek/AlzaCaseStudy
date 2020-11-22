@@ -17,7 +17,7 @@ namespace WebApi.Controllers.v1 {
 	/// <summary>
 	/// Product endpoint v1
 	/// </summary>
-	/// <seealso cref="WebApi.Controllers.BaseController" />
+	/// <seealso cref="BaseController" />
 	[ApiVersion("1")]
 	public class ProductController : BaseController {
 		private readonly Stopwatch _stopWatch;
