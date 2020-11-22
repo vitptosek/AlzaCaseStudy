@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@ namespace WebApi {
 
 		public Startup(IConfiguration configuration) => Configuration = configuration;
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionProvider) {
 			if (env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			}
@@ -31,11 +32,18 @@ namespace WebApi {
 				})
 
 				.UseSwagger()
-				.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/AlzaApi/swagger.json", "AlzaApi"));
+				.UseSwaggerUI(options => {
+					foreach (var version in apiVersionProvider.ApiVersionDescriptions) {
+						options.SwaggerEndpoint($"/swagger/{version.GroupName}/swagger.json", version.GroupName.ToUpperInvariant());
+					}
+				});
 		}
 
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllers(); //TODO: add Newtonsoft json option for reference loop handling in case of cross-referencing entities
+			services.AddControllers();
+
+			services.AddApiVersioning()
+					.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
 
 			#region app-specific-di-services
 
