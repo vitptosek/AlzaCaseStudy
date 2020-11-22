@@ -28,7 +28,7 @@ namespace WebApi.Controllers.v1 {
 		/// Gets the product by identifier.
 		/// </summary>
 		/// <param name="id">The identifier.</param>
-		/// <returns></returns>
+		/// <returns>Product if found, otherwise none</returns>
 		[HttpGet]
 		[MapToApiVersion("1")]
 		[MapToApiVersion("2")]
@@ -51,7 +51,7 @@ namespace WebApi.Controllers.v1 {
 		/// <summary>
 		/// Gets available products.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Products if available, otherwise none</returns>
 		[HttpGet]
 		[MapToApiVersion("1")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -75,7 +75,7 @@ namespace WebApi.Controllers.v1 {
 		/// </summary>
 		/// <param name="productId">The product identifier.</param>
 		/// <param name="description">The description to be updated.</param>
-		/// <returns></returns>
+		/// <returns>Updated product if success along with status, otherwise status only</returns>
 		[HttpPut]
 		[MapToApiVersion("1")]
 		[MapToApiVersion("2")]

@@ -35,6 +35,7 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 				//TODO: this could be in some internal common service - get from cache or add to it...
 				var entity = await _dbContext.Products.FindAsync(request.ProductId);
 
+				//TODO: some comments describing how things work could be added but I better believe in code clarity that never gets outdated
 				if (entity is null) {
 					return response;
 				}

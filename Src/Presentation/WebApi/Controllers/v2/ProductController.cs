@@ -26,7 +26,7 @@ namespace WebApi.Controllers.v2 {
 		/// </summary>
 		/// <param name="pageNumber">The page number.</param>
 		/// <param name="pageSize">Size of the page.</param>
-		/// <returns></returns>
+		/// <returns>Products as per desired paging if available, otherwise none</returns>
 		[HttpGet]
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
