@@ -14,6 +14,8 @@ REST API service providing all available products of an eshop and enabling the p
   - Commands  
     - Partial update of a product (based on filter and entity state)
 
+- Some other features like logging have also been implemented
+
 ## Architecture
 
 ### Literature
