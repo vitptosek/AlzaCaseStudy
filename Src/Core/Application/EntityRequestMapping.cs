@@ -6,6 +6,7 @@ using Domain.Entities.Relations;
 using Application.Entities.Dto;
 
 using Application.Services.Products.Queries.GetProduct;
+using Application.Services.Products.Queries.GetProducts;
 
 namespace Application {
 
@@ -16,6 +17,7 @@ namespace Application {
 			#region Responses
 
 			CreateMap<Product, GetProductResponse>().IncludeBase<Product, ProductDto>();
+			CreateMap<Product, GetProductsResponse>().IncludeBase<Product, ProductDto>();
 
 			#endregion
 
