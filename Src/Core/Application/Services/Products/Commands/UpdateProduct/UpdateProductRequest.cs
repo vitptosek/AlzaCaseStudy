@@ -18,6 +18,7 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 	public class UpdateProductRequest : IRequest<UpdateProductResponse> {
 		public Guid ProductId { internal get; set; }
 		public string Description { internal get; set; }
+		//TODO: for partial update we could e.g use (input/existing) DTO with all editable properties and in case of only one specific we could make sure nothing else gets updated
 
 		public class Handler : IRequestHandler<UpdateProductRequest, UpdateProductResponse> {
 			private readonly IMapper _mapper;
