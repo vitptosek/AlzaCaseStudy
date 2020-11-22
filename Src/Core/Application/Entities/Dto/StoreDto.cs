@@ -1,8 +1,8 @@
 ﻿namespace Application.Entities.Dto {
 
 	public class StoreDto {
-		public string Name { get; internal set; }
-		public string City { get; internal set; }
+		public string StoreName { get; internal set; }
+		public string StoreCity { get; internal set; }
 
 		internal StoreDto() { }
 	}
