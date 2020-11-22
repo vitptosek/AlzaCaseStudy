@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Diagnostics;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -9,17 +7,19 @@ using Microsoft.AspNetCore.Http;
 
 using Application.Services.Products.Queries.GetProducts;
 
+using Domain.Entities;
+
+using Logging.Interfaces;
+
 namespace WebApi.Controllers.v2 {
 
 	/// <summary>
 	/// Product endpoint v2
 	/// </summary>
-	/// <seealso cref="BaseController" />
+	/// <seealso cref="BaseController{Product}" />
 	[ApiVersion("2")]
-	public class ProductController : BaseController {
-		private readonly Stopwatch _stopWatch;
-
-		public ProductController() => _stopWatch = new Stopwatch();
+	public class ProductController : BaseController<Product> {
+		public ProductController(IRequestLogger<Product> logger) : base(logger) { }
 
 		/// <summary>
 		/// Gets available products paginated.
@@ -36,7 +36,7 @@ namespace WebApi.Controllers.v2 {
 			var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize });
 			_stopWatch.Stop();
 
-			Console.WriteLine($"GetAvailablePaginated - {_stopWatch.ElapsedMilliseconds} ms"); //TODO: use logger instead
+			Logger.LogRequest(AccessorIp, $"GetAvailablePaginated - {DurationMs} ms", 1, DurationMs);
 
 			if (results.Any()) {
 				return Ok(results);

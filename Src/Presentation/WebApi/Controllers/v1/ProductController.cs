@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using Application.Services.Products.Commands.UpdateProduct;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -12,17 +9,22 @@ using Microsoft.AspNetCore.Http;
 using Application.Services.Products.Queries.GetProduct;
 using Application.Services.Products.Queries.GetProducts;
 
+using Application.Services.Products.Commands.UpdateProduct;
+
+using Domain.Entities;
+
+using Logging.Interfaces;
+
 namespace WebApi.Controllers.v1 {
 
 	/// <summary>
 	/// Product endpoint v1
 	/// </summary>
-	/// <seealso cref="BaseController" />
+	/// <seealso cref="BaseController{Product}" />
 	[ApiVersion("1")]
-	public class ProductController : BaseController {
-		private readonly Stopwatch _stopWatch;
+	public class ProductController : BaseController<Product> {
 
-		public ProductController() => _stopWatch = new Stopwatch();
+		public ProductController(IRequestLogger<Product> logger) : base(logger) { }
 
 		/// <summary>
 		/// Gets the product by identifier.
@@ -43,7 +45,7 @@ namespace WebApi.Controllers.v1 {
 				return NotFound();
 			}
 
-			Console.WriteLine($"GetById - {result.ProductName} - {_stopWatch.ElapsedMilliseconds} ms"); //TODO: use logger instead
+			Logger.LogRequest(AccessorIp, $"GetById - {result.ProductName} - {DurationMs} ms", 1, DurationMs);
 
 			return Ok(result);
 		}
@@ -61,7 +63,7 @@ namespace WebApi.Controllers.v1 {
 			var results = await ServiceRequest.Send(new GetProductsRequest());
 			_stopWatch.Stop();
 
-			Console.WriteLine($"GetAvailable - {_stopWatch.ElapsedMilliseconds} ms"); //TODO: use logger instead
+			Logger.LogRequest(AccessorIp, $"GetAvailable - {DurationMs} ms", 1, DurationMs);
 
 			if (results.Any()) {
 				return Ok(results);
@@ -86,7 +88,7 @@ namespace WebApi.Controllers.v1 {
 			var result = await ServiceRequest.Send(new UpdateProductRequest { ProductId = productId, Description = description });
 			_stopWatch.Stop();
 
-			Console.WriteLine($"Update - {result.ProductUpdated} - {_stopWatch.ElapsedMilliseconds} ms"); //TODO: use logger instead
+			Logger.LogRequest(AccessorIp, $"Update - {result.ProductUpdated} - {DurationMs} ms", 1, DurationMs);
 
 			if (result.ProductUpdated) {
 				return Ok(result);

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Logging;
 using Application;
 using Persistence;
 
@@ -47,9 +48,10 @@ namespace WebApi {
 
 			#region app-specific-di-services
 
-			//TODO: add logger/filter/health checks
+			//TODO: add filter/health checks
 			services.AddSwaggerServices()
 					.AddApplicationServices()
+					.AddRequestLoggingServices()
 					.AddPersistenceServices(Configuration);
 
 			#endregion
