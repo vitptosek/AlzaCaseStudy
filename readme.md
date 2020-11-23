@@ -10,7 +10,8 @@ REST API service providing all available products of an eshop and enabling the p
 - This is to demonstrate a chosen multi-layer approach to a backend development of some trivial Eshop providing basic functionality upon products such as:
   - Queries
     - Get product detail (based on filter)
-    - Get list of products (based on filter, availability) and its pagination in higher version
+    - Get list of products (based on filter, availability) 
+      - List is paginated in higher version (based on ordering by identifier - criterion can be changed)
   - Commands  
     - Partial update of a product (based on filter and entity state)
 
@@ -50,7 +51,13 @@ Steps
 - Set WebApi to be your startup project and watch things happen on following endpoints
   - Swagger: [localhost:5000/swagger](http://localhost:5000/swagger/index.html)
   - Database health check: [localhost:5000/health/db/alza](http://localhost:5000/health/db/alza) (should indicate Healthy)
-  - Actual WebApi corresponding to Swagger: localhost:5000/api/v\<version>/\<Controller>/\<Action> - [example](http://localhost:5000/api/v1/Product/GetAvailable)
+  - Actual WebApi corresponding to Swagger: localhost:5000/api/v\<version>/\<Controller>/\<Action> 
+    - Version 1 
+      - [example](http://localhost:5000/api/v1/Product/GetAvailable) - all products
+    - Version 2 
+      - [example](http://localhost:5000/api/v2/Product/GetAvailable/1) - all products paginated (first page by 10 products)
+      - [example](http://localhost:5000/api/v2/Product/GetAvailable/1/15) - all products paginated (first page by 15 products)
+      - [example](http://localhost:5000/api/v2/Product/GetAvailable/2/2) - all products paginated (second page by 2 products)
 
 ## License
 
