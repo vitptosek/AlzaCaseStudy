@@ -50,7 +50,8 @@ namespace WebApi {
 
 			#region app-specific-di-services
 
-			//TODO: add filter/health checks
+			//TODO: add DI for action filters if needed
+
 			services.AddSwaggerServices()
 					.AddApplicationServices()
 					.AddHealthCheckServices()
