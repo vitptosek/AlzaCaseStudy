@@ -14,6 +14,8 @@ REST API service providing all available products of an eshop and enabling the p
   - Commands  
     - Partial update of a product (based on filter and entity state)
 
+- Some other features like logging have also been implemented
+
 ## Architecture
 
 ### Literature
@@ -45,7 +47,10 @@ Steps
 - Pull for the latest version of Master branch
 - Rebuild the solution to make sure all of the packages are there
 - Update-Database to keep up with the most recent migration in the project
-- Set WebApi to be your startup project and watch things happen on localhost:5000
+- Set WebApi to be your startup project and watch things happen on following endpoints
+  - Swagger: [localhost:5000/swagger](http://localhost:5000/swagger/index.html)
+  - Database health check: [localhost:5000/health/db/alza](http://localhost:5000/health/db/alza) (should indicate Healthy)
+  - Actual WebApi corresponding to Swagger: localhost:5000/api/v\<version>/\<Controller>/\<Action> - [example](http://localhost:5000/api/v1/Product/GetAvailable)
 
 ## License
 

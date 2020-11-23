@@ -11,6 +11,8 @@ using Application;
 using Persistence;
 
 using WebApi.Swagger;
+using WebApi.Extensions;
+using WebApi.HealthChecks;
 
 namespace WebApi {
 
@@ -29,7 +31,7 @@ namespace WebApi {
 			app.UseRouting()
 				.UseEndpoints(endpoints => {
 					endpoints.MapControllers();
-					//TODO: map health checks
+					endpoints.MapHealthChecks();
 				})
 
 				.UseSwagger()
@@ -51,6 +53,7 @@ namespace WebApi {
 			//TODO: add filter/health checks
 			services.AddSwaggerServices()
 					.AddApplicationServices()
+					.AddHealthCheckServices()
 					.AddRequestLoggingServices()
 					.AddPersistenceServices(Configuration);
 
