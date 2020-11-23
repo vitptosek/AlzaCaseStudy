@@ -27,18 +27,18 @@ namespace WebApi.Controllers.v1 {
 		public ProductController(IRequestLogger<Product> logger) : base(logger) { }
 
 		/// <summary>
-		/// Gets the product by identifier.
+		/// Gets the product by its identifier.
 		/// </summary>
-		/// <param name="id">The identifier.</param>
+		/// <param name="productId">The product identifier.</param>
 		/// <returns>Product if found, otherwise none</returns>
-		[HttpGet]
+		[HttpGet("{productId}")]
 		[MapToApiVersion("1")]
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<GetProductResponse>> GetById(Guid id) {
+		public async Task<ActionResult<GetProductResponse>> GetById(Guid productId) {
 			_stopWatch.Restart();
-			var result = await ServiceRequest.Send(new GetProductRequest { ProductId = id });
+			var result = await ServiceRequest.Send(new GetProductRequest { ProductId = productId });
 			_stopWatch.Stop();
 
 			if (result is null) {
@@ -73,7 +73,7 @@ namespace WebApi.Controllers.v1 {
 		}
 
 		/// <summary>
-		/// Updates the specified product by identifier.
+		/// Updates the specified product by its identifier.
 		/// </summary>
 		/// <param name="productId">The product identifier.</param>
 		/// <param name="description">The description to be updated.</param>
@@ -83,7 +83,7 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<UpdateProductResponse>> Update(Guid productId, string description) {
+		public async Task<ActionResult<UpdateProductResponse>> Update([FromBody]Guid productId, string description) {
 			_stopWatch.Restart();
 			var result = await ServiceRequest.Send(new UpdateProductRequest { ProductId = productId, Description = description });
 			_stopWatch.Stop();

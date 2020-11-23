@@ -22,12 +22,12 @@ namespace WebApi.Controllers.v2 {
 		public ProductController(IRequestLogger<Product> logger) : base(logger) { }
 
 		/// <summary>
-		/// Gets available products paginated.
+		/// Gets available products paginated by page number and size.
 		/// </summary>
 		/// <param name="pageNumber">The page number.</param>
 		/// <param name="pageSize">Size of the page.</param>
 		/// <returns>Products as per desired paging if available, otherwise none</returns>
-		[HttpGet]
+		[HttpGet("{pageNumber}/{pageSize?}")]
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
