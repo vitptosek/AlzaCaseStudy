@@ -6,10 +6,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Logging;
 using Application;
 using Persistence;
 
 using WebApi.Swagger;
+using WebApi.Extensions;
+using WebApi.HealthChecks;
 
 namespace WebApi {
 
@@ -28,7 +31,7 @@ namespace WebApi {
 			app.UseRouting()
 				.UseEndpoints(endpoints => {
 					endpoints.MapControllers();
-					//TODO: map health checks
+					endpoints.MapHealthChecks();
 				})
 
 				.UseSwagger()
@@ -47,9 +50,11 @@ namespace WebApi {
 
 			#region app-specific-di-services
 
-			//TODO: add logger/filter/health checks
+			//TODO: add filter/health checks
 			services.AddSwaggerServices()
 					.AddApplicationServices()
+					.AddHealthCheckServices()
+					.AddRequestLoggingServices()
 					.AddPersistenceServices(Configuration);
 
 			#endregion
