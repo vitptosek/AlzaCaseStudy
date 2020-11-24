@@ -3,10 +3,9 @@ using Xunit;
 
 using Application.Interfaces;
 
-
 namespace UnitTests.Application {
 
-	public class ProductServiceTest {
+	public class ProductServiceTests {
 
 		[Fact]
 		public void ProductGetByIdTest() {
