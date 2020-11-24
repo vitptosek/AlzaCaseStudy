@@ -23,7 +23,7 @@ namespace WebApi.Controllers {
 		protected IRequestLogger<T> Logger { get; }
 
 		protected long DurationMs => _stopWatch.ElapsedMilliseconds;
-		protected string AccessorIp => Request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+		protected string AccessorIp => Request.HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
 
 		public IMediator ServiceRequest => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
