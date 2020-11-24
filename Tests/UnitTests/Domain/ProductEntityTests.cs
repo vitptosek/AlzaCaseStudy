@@ -6,7 +6,7 @@ using Domain.Entities;
 
 namespace UnitTests.Domain {
 
-	public class ProductTests {
+	public class ProductEntityTests {
 
 		[Fact]
 		public void ProductUpdateTest() {
@@ -29,7 +29,6 @@ namespace UnitTests.Domain {
 			Assert.True($"{tv}" == "Product TV for 9");
 			tv.IsDeleted = true;
 			Assert.True($"{tv}" == "Product TV for 9 [deleted]");
-
 		}
 	}
 }
