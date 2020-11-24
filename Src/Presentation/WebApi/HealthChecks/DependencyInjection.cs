@@ -8,7 +8,7 @@ namespace WebApi.HealthChecks {
 
 		public static IServiceCollection AddHealthCheckServices(this IServiceCollection services) {
 			services.AddHealthChecks()
-					.AddDbContextCheck<AlzaDbContext>("AlzaDb", tags: new[] { "db", "alza" }); //TODO: add some custom health checks using IHealthCheck
+					.AddDbContextCheck<AlzaDbContext>("AlzaDb", tags: new[] { "db", "alza" }); //Note: here could be added some more custom health checks using IHealthCheck
 
 			return services;
 		}

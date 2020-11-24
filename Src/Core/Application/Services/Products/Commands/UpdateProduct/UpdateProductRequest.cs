@@ -18,7 +18,9 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 	public class UpdateProductRequest : IRequest<UpdateProductResponse> {
 		public Guid ProductId { internal get; set; }
 		public string Description { internal get; set; }
-		//TODO: for partial update we could e.g use (input/existing) DTO with all editable properties and in case of only one specific we could make sure nothing else gets updated
+
+		//Note: for partial update we could e.g use (special input/existing) DTO with all editable properties
+		//Then in case of only one specific being meant to be updated we could make sure nothing else gets updated as well
 
 		public class Handler : IRequestHandler<UpdateProductRequest, UpdateProductResponse> {
 			private readonly IMapper _mapper;
@@ -32,10 +34,10 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 			public async Task<UpdateProductResponse> Handle(UpdateProductRequest request, CancellationToken cancellationToken) {
 				var response = new UpdateProductResponse(false) { ProductUpdateMessage = "Product not found" };
 
-				//TODO: this could be in some internal common service - get from cache or add to it...
+				//Note: this could (and maybe should) be in some internal common service - get from cache or add to it...
 				var entity = await _dbContext.Products.FindAsync(request.ProductId);
 
-				//TODO: some comments describing how things work could be added but I better believe in code clarity that never gets outdated
+				//Note: some comments describing how things work could be added but I better believe in code clarity that never gets outdated
 				if (entity is null) {
 					return response;
 				}
@@ -57,7 +59,9 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 					response.ProductUpdated = false;
 					response.ProductUpdateMessage = e.Message;
 				}
-				//TODO: ...and then we could update the cache
+
+				//Note: ...and then we could update the cache (upsert)
+				//Note: also MediatR has Publish method Sending INotifications if preferred
 
 				return response;
 			}
