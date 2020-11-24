@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 using Moq;
 using Xunit;
+using Shouldly;
 using AutoMapper;
 
 using Application.Interfaces;
 using Application.Services.Products.Commands.UpdateProduct;
 
 using Domain.Entities;
-
-using Shouldly;
 
 namespace UnitTests.Application.Services {
 
