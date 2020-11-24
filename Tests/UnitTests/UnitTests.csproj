@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Include="Moq" Version="4.15.1" />
+    <PackageReference Include="Shouldly" Version="4.0.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -23,12 +24,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Src\Core\Application\Application.csproj" />
     <ProjectReference Include="..\..\Src\Core\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Src\Infrastructure\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\..\Src\Presentation\WebApi\WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Persistence\Integration\" />
     <Folder Include="Presentation\Integration\" />
-    <Folder Include="Presentation\Controllers\" />
-    <Folder Include="Presentation\" />
   </ItemGroup>
 
 </Project>

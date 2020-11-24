@@ -18,7 +18,7 @@ namespace Application.Services.Products.Queries.GetProduct {
 	/// Product if such exists (not-deleted), otherwise null
 	/// </returns>
 	public class GetProductRequest : IRequest<GetProductResponse> {
-		public Guid ProductId { internal get; set; }
+		public Guid ProductId {  get; set; }
 
 		public class Handler : IRequestHandler<GetProductRequest, GetProductResponse> {
 			private readonly IMapper _mapper;

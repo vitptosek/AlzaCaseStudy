@@ -34,7 +34,8 @@ Technology and packages used in the project
 
 - C# / .NET Core
 - Entity Framework Core / MSSQL
-- AutoMapper, CQRS, Dependency Injection, FluentValidation, MediatR, Swagger, X.PagedList, xUnit
+- FluentValidation, Moq, Shouldly, xUnit
+- AutoMapper, CQRS, Dependency Injection, MediatR, Swagger, X.PagedList
 
 ## Prerequisites 
 

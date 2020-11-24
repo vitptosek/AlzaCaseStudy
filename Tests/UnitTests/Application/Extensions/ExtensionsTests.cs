@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTests.Application.Extensions {
 
-	public class ExtensionsTest {
+	public class ExtensionsTests {
 
 		[Fact]
 		public void DistinctFirstByExtensionTest() {
