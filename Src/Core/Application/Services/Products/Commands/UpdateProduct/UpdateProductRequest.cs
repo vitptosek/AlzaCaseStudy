@@ -16,8 +16,8 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 	/// Result of product update state (not found/up to date/updated) and updated product in case of success
 	/// </returns>
 	public class UpdateProductRequest : IRequest<UpdateProductResponse> {
-		public Guid ProductId { internal get; set; }
-		public string Description { internal get; set; }
+		public Guid ProductId { get; set; }
+		public string Description { get; set; }
 
 		//Note: for partial update we could e.g use (special input/existing) DTO with all editable properties
 		//Then in case of only one specific being meant to be updated we could make sure nothing else gets updated as well

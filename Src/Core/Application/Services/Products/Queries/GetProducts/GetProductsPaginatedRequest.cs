@@ -26,8 +26,8 @@ namespace Application.Services.Products.Queries.GetProducts {
 	/// Prepared query for paginated products (not-deleted) being in at least one store (not-deleted) of at least one count, otherwise empty list
 	/// </returns>
 	public class GetProductsPaginatedRequest : IRequest<IEnumerable<GetProductsResponse>> {
-		public uint PageNumber { internal get; set; }
-		public uint PageSize { internal get; set; } = 10;
+		public uint PageNumber { get; set; }
+		public uint PageSize { get; set; } = 10;
 
 		public Expression<Func<Product, object>> PageOrderKey { internal get; set; } = product => product.Id;
 
