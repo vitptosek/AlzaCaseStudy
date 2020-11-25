@@ -42,8 +42,10 @@ Technology and packages used in the project
 For building and running the project one needs to have installed following
 
 - .NET Core framework - use the most recent LTS version and C# (latest version is nice)
-- Visual Studio -  .NET Core 3.0 requires Visual Studio 2019 (v16. 3 or later) or Visual Studio 2019 for Mac (v8. 3 or later)
-- DBMS - preferably MSSQL set for te project (or being dependant on InMemoryDb)
+- DBMS - preferably MSSQL as per request set for te project (or being dependant on InMemoryDb)
+- Visual Studio - .NET Core 3.0 requires 
+  - Visual Studio 2019 (v16. 3 or later)
+  - Visual Studio 2019 for Mac (v8. 3 or later)
 
 ## Steps how to launch
 
@@ -81,7 +83,26 @@ Currently, there should be fiveteen tests in the solution included covering
   - Persistence/Integration
 
 #### Database
-The complete database-related
+The complete database-related work should be taken care of itself thanks to migrations that are part of this project.
+However, if you wish to see "the raw data" you should be able to connect via connection string provided in *appsetting.json* of a Presentation layer, i.e. *WebApi* using e.g. Microsoft SQL Server Management Studio.
+
+- Database name: *AlzaDb*
+- Database scheme: *Eshop*
+
+- Example: Query providing all of not soft-deleted Products being available in at least one Store and listing their total count combined.
+
+```sql
+SELECT product.Name AS Product,
+       COUNT(product.Name) AS Count
+FROM Eshop.Products product 
+JOIN Eshop.StoreProducts sp 
+     ON product.Guid=sp.ProductId 
+WHERE product.IsDeleted = 0
+GROUP BY product.Name
+ORDER BY 2 DESC;
+```
+
+Somethin very similar is used with help of EF Core to achieve in *Product/GetAvailable* endpoint.
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
