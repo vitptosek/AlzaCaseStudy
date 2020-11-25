@@ -21,7 +21,9 @@ namespace Application {
 			CreateMap<Product, GetProductResponse>().IncludeBase<Product, ProductDto>();
 			CreateMap<Product, GetProductsResponse>().IncludeBase<Product, ProductDto>();
 
-			CreateMap<Product, UpdateProductResponse>().IncludeBase<Product, ProductDto>();
+			CreateMap<Product, UpdateProductResponse>().IncludeBase<Product, ProductDto>()
+				.ForMember(updateProductResponse => updateProductResponse.ProductUpdated, options => options.Ignore())
+				.ForMember(updateProductResponse => updateProductResponse.ProductUpdateMessage, options => options.Ignore());
 
 			#endregion
 

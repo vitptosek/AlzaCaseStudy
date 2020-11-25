@@ -9,7 +9,7 @@ namespace Persistence.RelationalDb.Configurations {
 		public void Configure(EntityTypeBuilder<StoreProduct> builder) {
 			builder.ToTable("StoreProducts");
 
-			builder.HasKey(store => store.Id); //TODO: think of using composite key instead and add Count property to relational table instead
+			builder.HasKey(store => store.Id); //TODO: think of using a composite key and add Count property to relational table instead
 
 			builder.Property(store => store.Id).HasColumnName("Guid")
 												.IsRequired()

@@ -34,7 +34,8 @@ Technology and packages used in the project
 
 - C# / .NET Core
 - Entity Framework Core / MSSQL
-- AutoMapper, CQRS, Dependency Injection, FluentValidation, MediatR, Swagger, X.PagedList, xUnit
+- FluentValidation, Moq, Shouldly, xUnit
+- AutoMapper, CQRS, Dependency Injection, MediatR, Swagger, X.PagedList
 
 ## Prerequisites 
 
@@ -59,6 +60,11 @@ Steps
       - [example](http://localhost:5000/api/v2/Product/GetAvailable/1/15) - all products paginated (first page by 15 products)
       - [example](http://localhost:5000/api/v2/Product/GetAvailable/2/2) - all products paginated (second page by 2 products)
 
+From command line (after ```git pull```) within
+- root folder
+```dotnet clean```, ```dotnet restore```, then ```dotnet build```
+- ..\Eshop\Src\Presentation\WebApi folder
+```dotnet run``` to launch Api using Kestrel
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)

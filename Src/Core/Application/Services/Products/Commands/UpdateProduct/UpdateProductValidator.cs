@@ -10,7 +10,8 @@ namespace Application.Services.Products.Commands.UpdateProduct {
 
 			RuleFor(product => product.Description).MaximumLength(150).WithMessage("Product description must be of maximum 150 characters");
 
-			//TODO: in case of create/update containing required price - it would be nice to check for negative values (as there is no such a thing as unasigned decimal) etc.
+			//Note: we do not support update of required Price attribute but if so, create/update
+			//		should validate against negative values (as there is no such a thing as unasigned decimal), i.e RuleFor...GreaterThan(0) etc
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace WebApi {
 				app.UseDeveloperExceptionPage();
 			}
 
-			//TODO: it would be nice to use HTTPS redirection and Authorization
+			//Note: it would be nice to use HTTPS redirection and Authorization here
 
 			app.UseRouting()
 				.UseEndpoints(endpoints => {
@@ -50,7 +50,7 @@ namespace WebApi {
 
 			#region app-specific-di-services
 
-			//TODO: add DI for action filters if needed
+			//Note: in case of action filters needed, here would be the right place for their DI
 
 			services.AddSwaggerServices()
 					.AddApplicationServices()

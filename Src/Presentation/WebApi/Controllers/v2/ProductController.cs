@@ -33,7 +33,7 @@ namespace WebApi.Controllers.v2 {
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> GetAvailable(uint pageNumber, uint pageSize = 10) {
 			_stopWatch.Restart();
-			var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize });
+			var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize, PageOrderKey = product => product.Name });
 			_stopWatch.Stop();
 
 			Logger.LogRequest(AccessorIp, $"GetAvailablePaginated - {DurationMs} ms", 1, DurationMs);
