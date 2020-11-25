@@ -62,9 +62,9 @@ Steps
 
 From command line (after ```git pull```) within
 - root folder
-```dotnet clean```, ```dotnet restore```
-- \Src\Presentation\WebApi folder
-```dotnet run```
+```dotnet clean```, ```dotnet restore```, then ```dotnet build```
+- ..\Eshop\Src\Presentation\WebApi folder
+```dotnet run``` to launch Api using Kestrel
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
