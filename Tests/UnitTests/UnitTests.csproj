@@ -30,8 +30,4 @@
     <ProjectReference Include="..\..\Src\Presentation\WebApi\WebApi.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Integration\" />
-  </ItemGroup>
-
 </Project>

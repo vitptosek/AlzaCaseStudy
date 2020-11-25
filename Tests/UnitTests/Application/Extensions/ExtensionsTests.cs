@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 
-using Application.Extensions;
-
 using Xunit;
+
+using Application.Extensions;
 
 namespace UnitTests.Application.Extensions {
 
 	public class ExtensionsTests {
 
 		[Fact]
-		public void DistinctFirstByExtensionTest() {
+		public void Distincts_First_By_Property_Extension_Test() {
 
 			var list = new[] {  new {Name = "Name1", Age = 20},
 								new {Name = "Name2", Age = 30},

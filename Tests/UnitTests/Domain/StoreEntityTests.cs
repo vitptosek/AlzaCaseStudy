@@ -10,7 +10,7 @@ namespace UnitTests.Domain {
 	public class StoreEntityTests {
 
 		[Fact]
-		public void StoreStockProductTest() {
+		public void Should_Store_Domain_Product_Test() {
 			var newStore = new Store("New store", "Prague");
 			var newProduct = new Product("New product", 10500.50m, new Uri("http://www.uriNewProduct/"));
 
@@ -22,7 +22,7 @@ namespace UnitTests.Domain {
 		}
 
 		[Fact]
-		public void StoreStringTest() {
+		public void Should_Format_Store_String_Test() {
 			var newStore = new Store("New store", "Prague");
 
 			Assert.True($"{newStore}" == "Store New store in Prague");
