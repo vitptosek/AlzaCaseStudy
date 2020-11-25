@@ -41,10 +41,13 @@ Technology and packages used in the project
 
 For building and running the project one needs to have installed following
 
-- .NET Core framework (use the most recent LTS version) and C# (latest version is nice)
-- MSSQL DBMS
+- .NET Core framework - use the most recent LTS version and C# (latest version is nice)
+- Visual Studio -  .NET Core 3.0 requires Visual Studio 2019 (v16. 3 or later) or Visual Studio 2019 for Mac (v8. 3 or later)
+- DBMS - preferably MSSQL set for te project (or being dependant on InMemoryDb)
 
-Steps
+## Steps how to launch
+
+#### The project from Visual Studio
 
 - Pull for the latest version of Master branch
 - Rebuild the solution to make sure all of the packages are there
@@ -60,11 +63,25 @@ Steps
       - [example](http://localhost:5000/api/v2/Product/GetAvailable/1/15) - all products paginated (first page by 15 products)
       - [example](http://localhost:5000/api/v2/Product/GetAvailable/2/2) - all products paginated (second page by 2 products)
 
-From command line (after ```git pull```) within
-- root folder
+#### The project from command line 
+- Choose root folder
+  - at root directory ```git pull```
+  - at root directory
 ```dotnet clean```, ```dotnet restore```, then ```dotnet build```
-- ..\Eshop\Src\Presentation\WebApi folder
-```dotnet run``` to launch Api using Kestrel
+- Go all the way down to ..\Eshop\Src\Presentation\WebApi folder
+  - in WebApi folder ```dotnet run``` to launch Kestrel Console App and Web Api
+ 
+#### Unit tests
+- In Visual Studio - Find Test explorer, then Run All Tests and it should all go green
+- From a command line - ```dotnet test```, for more options please see [documentation](https://docs.microsoft.com/cs-cz/dotnet/core/tools/dotnet-test)
+
+Currently, there should be fiveteen tests in the solution included covering
+  - Domain
+  - Application
+  - Persistence/Integration
+
+#### Database
+The complete database-related
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
