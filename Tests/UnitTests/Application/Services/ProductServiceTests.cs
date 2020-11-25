@@ -1,37 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using Microsoft.EntityFrameworkCore;
 
 using Moq;
 using Xunit;
 using Shouldly;
 using AutoMapper;
 
+using Domain.Entities;
 using Application.Interfaces;
 using Application.Services.Products.Commands.UpdateProduct;
 
-using Domain.Entities;
+using UnitTests.Application.Services.Common;
 
 namespace UnitTests.Application.Services {
-
-	public static class DbContextMock {
-		public static DbSet<T> GetQueryableMockDbSet<T>(List<T> sourceList) where T : class {
-			var dbSet = new Mock<DbSet<T>>();
-			var queryable = sourceList.AsQueryable();
-
-			dbSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryable.Provider);
-			dbSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
-			dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
-			dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
-			dbSet.Setup(d => d.Add(It.IsAny<T>())).Callback<T>(sourceList.Add);
-
-			return dbSet.Object;
-		}
-	}
 
 	public class ProductServiceTests {
 		private readonly Mock<IMapper> _mockMapper;
@@ -50,7 +33,7 @@ namespace UnitTests.Application.Services {
 		}
 
 		[Fact]
-		public async Task ProductUpdateTest() {
+		public async Task Should_Verify_Item_Update_Mock_Test() { //products update with no db
 			var sut = new UpdateProductRequest.Handler(_mockMapper.Object, _mockDbContext.Object);
 			var result = await sut.Handle(new UpdateProductRequest { ProductId = Guid.Empty }, CancellationToken.None);
 

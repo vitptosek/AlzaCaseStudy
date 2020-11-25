@@ -1,14 +1,14 @@
 ﻿using System;
 
-using AutoMapper;
-using Shouldly;
 using Xunit;
+using Shouldly;
+using AutoMapper;
+
+using Domain.Entities;
 
 using Application;
 using Application.Entities.Dto;
 using Application.Services.Products.Queries.GetProduct;
-
-using Domain.Entities;
 
 namespace UnitTests.Application.Mappings {
 
@@ -25,10 +25,10 @@ namespace UnitTests.Application.Mappings {
 		}
 
 		[Fact]
-		public void ConfigurationIsValidTest() => _configuration.AssertConfigurationIsValid();
+		public void Mapping_Configuration_Should_Be_Valid_Test() => _configuration.AssertConfigurationIsValid(); //to make sure we have covered all mappings
 
 		[Fact]
-		public void ProductDomainToApplicationMappingTest() {
+		public void Should_Map_Domain_Product_Entity_To_Application_DTO_Test() {
 			var entity = new Product("TV", 10500.50m, new Uri("http://www.uriTv/")) { Id = new Guid("EA0B6D19-A9A1-42CF-8E33-2514FE05F9C6") };
 
 			var entityDto = _mapper.Map<ProductDto>(entity);
