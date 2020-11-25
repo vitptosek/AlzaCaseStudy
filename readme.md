@@ -14,7 +14,8 @@ REST API service providing all available products of an eshop and enabling the p
       - List is paginated in higher version (based on ordering by identifier - criterion can be changed)
   - Commands  
     - Partial update of a product (based on filter and entity state)
-
+- Documentation
+- Multi-level testing
 - Some other features like logging have also been implemented
 
 ## Architecture
@@ -89,7 +90,7 @@ However, if you wish to see "the raw data" you should be able to connect via con
 - Database name: *AlzaDb*
 - Database scheme: *Eshop*
 
-- Example: Query providing all of not soft-deleted Products being available in at least one Store and listing their total count combined.
+Database query example - select providing all of not soft-deleted Products being available in at least one Store and listing their total count combined.
 
 ```sql
 SELECT product.Name AS Product,
@@ -102,9 +103,9 @@ GROUP BY product.Name
 ORDER BY 2 DESC;
 ```
 
-Somethin very similar is used with help of EF Core to achieve in *Product/GetAvailable* endpoint.
+Something very similar is used with help of EF Core to achieve in *Product/GetAvailable* endpoint.
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
-To the extent possible under law, [Vit Ptosek](https://github.com/vitptosek) has waived all copyright and related or neighboring rights to this work.
+To the extent possible under law, [Vit Ptosek](https://github.com/vitptosek) has waived all copyright and related or neighboring rights to this work. Happy coding.
