@@ -28,6 +28,7 @@ namespace Application {
 			#endregion
 
 			CreateMap<Product, ProductDto>().IncludeBase<Product, ProductIncludesDto>()
+				.ForMember(dto => dto.ProductId, options => options.MapFrom(product => product.Id))
 				.ForMember(dto => dto.ProductName, options => options.MapFrom(product => product.Name))
 				.ForMember(dto => dto.ProductPrice, options => options.MapFrom(product => product.Price))
 				.ForMember(dto => dto.ProductImgUri, options => options.MapFrom(product => product.ImgUri))

@@ -14,7 +14,7 @@ using WebApi.Controllers.Interfaces;
 namespace WebApi.Controllers {
 
 	[ApiController]
-	[Route("api/v{version:apiVersion}/[controller]/[action]")]
+	[Route("api/v{version:apiVersion}/[controller]/")]
 	public abstract class BaseController<T> : ControllerBase, IBaseController where T : AuditableEntity {
 		private IMediator _mediator;
 

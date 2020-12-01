@@ -9,9 +9,12 @@ namespace Application.Exceptions {
 
 	public class RequestValidationException : Exception {
 		public RequestValidationException(List<ValidationFailure> validationFailures) : base("Request validation failed") {
-			foreach (var failure in validationFailures.DistinctFirstBy(failure => failure.PropertyName)) {
-				Console.WriteLine($"{failure.PropertyName} - {failure.ErrorMessage}");
-			}
+			var messages = new List<string>();
+
+			validationFailures.DistinctFirstBy(failure => failure.PropertyName)
+								.ForEach(failure => messages.Add($"{failure.PropertyName} - {failure.ErrorMessage}"));
+
+			throw new Exception(String.Join(Environment.NewLine, messages));
 		}
 	}
 }

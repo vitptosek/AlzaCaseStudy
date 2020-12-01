@@ -19,7 +19,7 @@ namespace UnitTests.Presentation.Integration.Controllers {
 		[Fact]
 		public async Task Should_Test_Product_Controller_Integration_Test() {
 			var client = _factory.CreateClient();
-			var response = await client.GetAsync("/api/v1/Product/GetAvailable");
+			var response = await client.GetAsync("/api/v1/Product/");
 
 			response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
