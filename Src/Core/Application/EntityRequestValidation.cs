@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MediatR;
 using FluentValidation;
 
+using Application.Exceptions;
+
 namespace Application {
 	public class EntityRequestValidation<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse> {
 		private readonly IEnumerable<IValidator<TRequest>> _validators;
@@ -21,7 +23,7 @@ namespace Application {
 												.ToList();
 
 			if (validationFailures.Count != 0) {
-				throw new Exceptions.RequestValidationException(validationFailures);
+				throw new RequestValidationException(validationFailures);
 			}
 
 			return task();

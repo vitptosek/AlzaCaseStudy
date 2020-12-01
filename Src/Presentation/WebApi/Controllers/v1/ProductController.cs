@@ -27,30 +27,6 @@ namespace WebApi.Controllers.v1 {
 		public ProductController(IRequestLogger<Product> logger) : base(logger) { }
 
 		/// <summary>
-		/// Gets the product by its identifier.
-		/// </summary>
-		/// <param name="productId">The product identifier.</param>
-		/// <returns>Product if found, otherwise none</returns>
-		[HttpGet("{productId}")]
-		[MapToApiVersion("1")]
-		[MapToApiVersion("2")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<GetProductResponse>> GetById(Guid productId) {
-			_stopWatch.Restart();
-			var result = await ServiceRequest.Send(new GetProductRequest { ProductId = productId });
-			_stopWatch.Stop();
-
-			if (result is null) {
-				return NotFound();
-			}
-
-			Logger.LogRequest(AccessorIp, $"GetById - {result.ProductName} - {DurationMs} ms", 1, DurationMs);
-
-			return Ok(result);
-		}
-
-		/// <summary>
 		/// Gets available products.
 		/// </summary>
 		/// <returns>Products if available, otherwise none</returns>
@@ -58,7 +34,7 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("1")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> GetAvailable() {
+		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> Get() {
 			_stopWatch.Restart();
 			var results = await ServiceRequest.Send(new GetProductsRequest());
 			_stopWatch.Stop();
@@ -73,6 +49,36 @@ namespace WebApi.Controllers.v1 {
 		}
 
 		/// <summary>
+		/// Gets the product by its identifier.
+		/// </summary>
+		/// <param name="productId">The product identifier.</param>
+		/// <returns>Product if found, otherwise none</returns>
+		[HttpGet("{productId}")]
+		[MapToApiVersion("1")]
+		[MapToApiVersion("2")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<ActionResult<GetProductResponse>> Get(Guid productId) {
+			try {
+				_stopWatch.Restart();
+				var result = await ServiceRequest.Send(new GetProductRequest { ProductId = productId });
+				_stopWatch.Stop();
+
+				if (result is null) {
+					return NotFound();
+				}
+
+				Logger.LogRequest(AccessorIp, $"GetById - {result.ProductName} - {DurationMs} ms", 1, DurationMs);
+
+				return Ok(result);
+			}
+			catch (Exception e) {
+				Logger.LogRequest(AccessorIp, $"GetById - {e.Message} - {DurationMs} ms", 1, DurationMs);
+				return BadRequest(e.Message);
+			}
+		}
+
+		/// <summary>
 		/// Updates the specified product by its identifier.
 		/// </summary>
 		/// <param name="productId">The product identifier.</param>
@@ -83,18 +89,24 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<UpdateProductResponse>> Update([FromBody]Guid productId, string description) {
-			_stopWatch.Restart();
-			var result = await ServiceRequest.Send(new UpdateProductRequest { ProductId = productId, Description = description });
-			_stopWatch.Stop();
+		public async Task<ActionResult<UpdateProductResponse>> Put([FromBody] Guid productId, string description) {
+			try {
+				_stopWatch.Restart();
+				var result = await ServiceRequest.Send(new UpdateProductRequest { ProductId = productId, Description = description });
+				_stopWatch.Stop();
 
-			Logger.LogRequest(AccessorIp, $"Update - {result.ProductUpdated} - {DurationMs} ms", 1, DurationMs);
+				Logger.LogRequest(AccessorIp, $"Update - {result.ProductUpdated} - {DurationMs} ms", 1, DurationMs);
 
-			if (result.ProductUpdated) {
-				return Ok(result);
+				if (result.ProductUpdated) {
+					return Ok(result);
+				}
+
+				return NotFound(result);
 			}
-
-			return NotFound(result);
+			catch (Exception e) {
+				Logger.LogRequest(AccessorIp, $"Update - {e.Message} - {DurationMs} ms", 1, DurationMs);
+				return BadRequest(e.Message);
+			}
 		}
 	}
 }

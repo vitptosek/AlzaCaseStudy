@@ -31,7 +31,7 @@ namespace WebApi.Controllers.v2 {
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> GetAvailable(uint pageNumber, uint pageSize = 10) {
+		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> Get(uint pageNumber, uint pageSize = 10) {
 			_stopWatch.Restart();
 			var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize, PageOrderKey = product => product.Name });
 			_stopWatch.Stop();
