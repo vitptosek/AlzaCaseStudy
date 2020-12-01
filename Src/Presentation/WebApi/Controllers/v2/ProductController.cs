@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Application.Services.Products.Queries.GetProducts;
 
 using Domain.Entities;
-
 using Logging.Interfaces;
 
 namespace WebApi.Controllers.v2 {
@@ -31,18 +31,26 @@ namespace WebApi.Controllers.v2 {
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> Get(uint pageNumber, uint pageSize = 10) {
-			_stopWatch.Restart();
-			var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize, PageOrderKey = product => product.Name });
-			_stopWatch.Stop();
+			try {
+				_stopWatch.Restart();
+				var results = await ServiceRequest.Send(new GetProductsPaginatedRequest { PageNumber = pageNumber, PageSize = pageSize, PageOrderKey = product => product.Name });
+				_stopWatch.Stop();
 
-			Logger.LogRequest(AccessorIp, $"GetAvailablePaginated - {DurationMs} ms", 1, DurationMs);
+				Logger.LogRequest(AccessorIp, $"GetAvailablePaginated - {DurationMs} ms", 1, DurationMs);
 
-			if (results.Any()) {
-				return Ok(results);
+				if (results.Any()) {
+					return Ok(results);
+				}
+
+				return NotFound();
 			}
+			catch (Exception e) {
+				Logger.LogRequest(AccessorIp, $"GetAvailablePaginated - {e.Message}", 1, DurationMs);
 
-			return NotFound();
+				return BadRequest(e.Message);
+			}
 		}
 	}
 }

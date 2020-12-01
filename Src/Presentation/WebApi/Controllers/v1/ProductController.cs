@@ -12,7 +12,6 @@ using Application.Services.Products.Queries.GetProducts;
 using Application.Services.Products.Commands.UpdateProduct;
 
 using Domain.Entities;
-
 using Logging.Interfaces;
 
 namespace WebApi.Controllers.v1 {
@@ -34,18 +33,26 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("1")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<IEnumerable<GetProductsResponse>>> Get() {
-			_stopWatch.Restart();
-			var results = await ServiceRequest.Send(new GetProductsRequest());
-			_stopWatch.Stop();
+			try {
+				_stopWatch.Restart();
+				var results = await ServiceRequest.Send(new GetProductsRequest());
+				_stopWatch.Stop();
 
-			Logger.LogRequest(AccessorIp, $"GetAvailable - {DurationMs} ms", 1, DurationMs);
+				Logger.LogRequest(AccessorIp, $"GetAvailable - {DurationMs} ms", 1, DurationMs);
 
-			if (results.Any()) {
-				return Ok(results);
+				if (results.Any()) {
+					return Ok(results);
+				}
+
+				return NotFound();
 			}
+			catch (Exception e) {
+				Logger.LogRequest(AccessorIp, $"GetAvailable - {e.Message}", 1, DurationMs);
 
-			return NotFound();
+				return BadRequest(e.Message);
+			}
 		}
 
 		/// <summary>
@@ -58,6 +65,7 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<GetProductResponse>> Get(Guid productId) {
 			try {
 				_stopWatch.Restart();
@@ -73,7 +81,8 @@ namespace WebApi.Controllers.v1 {
 				return Ok(result);
 			}
 			catch (Exception e) {
-				Logger.LogRequest(AccessorIp, $"GetById - {e.Message} - {DurationMs} ms", 1, DurationMs);
+				Logger.LogRequest(AccessorIp, $"GetById - {e.Message}", 1, DurationMs);
+
 				return BadRequest(e.Message);
 			}
 		}
@@ -88,6 +97,7 @@ namespace WebApi.Controllers.v1 {
 		[MapToApiVersion("1")]
 		[MapToApiVersion("2")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<UpdateProductResponse>> Put([FromBody] Guid productId, string description) {
 			try {
@@ -104,7 +114,8 @@ namespace WebApi.Controllers.v1 {
 				return NotFound(result);
 			}
 			catch (Exception e) {
-				Logger.LogRequest(AccessorIp, $"Update - {e.Message} - {DurationMs} ms", 1, DurationMs);
+				Logger.LogRequest(AccessorIp, $"Update - {e.Message}", 1, DurationMs);
+
 				return BadRequest(e.Message);
 			}
 		}
